@@ -1,0 +1,55 @@
+{
+    "userAgent": "Boto3/1.9.201 Python/2.7.12 Linux/4.4.0-159-generic Botocore/1.12.201",
+    "eventID": "d6a43869-06d6-40c3-9e52-4c0ac411755a",
+    "errorMessage": "Request limit exceeded.",
+    "userIdentity": {
+      "type": "IAMUser",
+      "principalId": "AIDADO2GQD0K8TEF7KW1V",
+      "arn": "arn:aws:iam::811596193553:user/Level6",
+      "accountId": "811596193553",
+      "accessKeyId": "AKIA3Z2XBVUDFQ9TU4MD",
+      "userName": "Level6"
+    },
+    "eventType": "AwsApiCall",
+    "errorCode": "Client.RequestLimitExceeded",
+    "sourceIPAddress": "5.205.62.253",
+    "eventName": "RunInstances",
+    "eventSource": "ec2.amazonaws.com",
+    "recipientAccountId": "811596193553",
+    "requestParameters": {
+      "instancesSet": {
+        "items": [
+          {
+            "imageId": "ami-c6ae2e7d00cb43daf",
+            "minCount": 1,
+            "maxCount": 10
+          }
+        ]
+      },
+      "userData": "<sensitiveDataRemoved>",
+      "instanceType": "m5d.12xlarge",
+      "blockDeviceMapping": {},
+      "monitoring": {
+        "enabled": false
+      },
+      "disableApiTermination": true,
+      "tagSpecificationSet": {
+        "items": [
+          {
+            "resourceType": "instance",
+            "tags": [
+              {
+                "key": "my_ec2_key",
+                "value": "my_a_val"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "awsRegion": "ap-northeast-2",
+    "requestID": "d36d1494-f8a3-4817-b2b3-f5ec1d8b3ee6",
+    "responseElements": null,
+    "eventVersion": "1.05",
+    "eventTime": "2019-08-22T14:20:43Z"
+  }
