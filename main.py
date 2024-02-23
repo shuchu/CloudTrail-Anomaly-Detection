@@ -82,7 +82,7 @@ def extract(field, value, directory):
 def demo(fpath):
     import csv
     import numpy as np
-    from user_activity_time_anomaly_detector import UserActivityAD
+    from user_activity_anomaly_detector import UserActivityAD
 
     #1. load the data
     data = []
@@ -103,12 +103,17 @@ def demo(fpath):
 
     # transfer the tr_data to numpy
     tr_data = [d[1:] for d in tr_data]
-    tr_data_np = np.array(tr_data)
+    tr_data_np = np.array(tr_data, dtype=np.float64)
+    
+    # add Guassian noise
+    noise = np.random.normal(0.0, 0.001, size=tr_data_np.shape)
+    tr_data_np = tr_data_np + noise
 
     mymodel.train(tr_data_np)
     
     #4. do prediction
     pred = {}
+    cnt = 0
     for d in te_data:
         idx = d[0]
         d_array = d[1:]
@@ -116,12 +121,21 @@ def demo(fpath):
        
         label, score = mymodel.predict(datum)
 
-        pred[idx] = {"label": int(label[0]), "score": float(score[0])}        
+        if label[0] >= 1:
+            pred[idx] = {"label": int(label[0]), "score": float(score[0])}       
+            cnt += 1 
 
     #5. save result
-    with open("pred_result.json", 'w') as f:
+    with open("result/pred_result.json", 'w') as f:
         json.dump(pred, f, indent=2)
 
+    # info
+    print("Rate of anomaly: {}".format(cnt / len(data)))
+
+
+@click.command()
+def visualize():
+    pass
 
 if __name__ == '__main__':
     cli.add_command(count)
