@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 
-from typing import Any
 from collections import defaultdict
-import json
 
 
 class CTAnalyzer:

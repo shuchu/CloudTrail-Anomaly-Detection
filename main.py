@@ -25,7 +25,6 @@ def _get_flatten_field_value_from_json(field:str, obj: dict) -> Any:
     return myobj
 
 
-
 @click.command(help="Count how many unique values of a specific field in the data.")
 @click.argument("target")
 @click.argument("directory", type=click.Path(exists=True))
@@ -49,7 +48,6 @@ def count(target, directory):
         json.dump(ct_analyzer.iam_users, f, indent=2)
 
 
-
 @click.command(help="Dump records that match requirements.")
 @click.argument("field")
 @click.argument("value")
@@ -68,7 +66,6 @@ def extract(field, value, directory):
                     val = _get_flatten_field_value_from_json(field, obj)
                     if val == value:
                         res.append(obj)
-
 
     except Exception as e:
         raise e

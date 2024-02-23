@@ -2,7 +2,6 @@
 
 import json
 import csv
-import pandas as pd
 from datetime import datetime
 
 
