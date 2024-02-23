@@ -1,5 +1,7 @@
 Detect a user's activity time anomaly for the CloudTrail data.
 
+data source: 
+https://summitroute.com/blog/2020/10/09/public_dataset_of_cloudtrail_logs_from_flaws_cloud/
 
 IAM field:
 userIdentity.arn
