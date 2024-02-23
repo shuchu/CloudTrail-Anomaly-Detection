@@ -77,7 +77,54 @@ def extract(field, value, directory):
         json.dump(res, f, indent=2)
 
 
+@click.command(help="A demo.")
+@click.argument("fpath", type=click.File('r'))
+def demo(fpath):
+    import csv
+    import numpy as np
+    from user_activity_time_anomaly_detector import UserActivityAD
+
+    #1. load the data
+    data = []
+
+    myreader = csv.reader(fpath)
+    for row in myreader:
+        data.append(row)
+
+    #2. split the trainn and testing 70-30
+    tr_ratio = 0.9
+    tr_end_idx = int(tr_ratio * len(data))
+
+    tr_data = data[:tr_end_idx]
+    te_data = data[tr_end_idx:]
+
+    #3. train the model
+    mymodel = UserActivityAD()
+
+    # transfer the tr_data to numpy
+    tr_data = [d[1:] for d in tr_data]
+    tr_data_np = np.array(tr_data)
+
+    mymodel.train(tr_data_np)
+    
+    #4. do prediction
+    pred = {}
+    for d in te_data:
+        idx = d[0]
+        d_array = d[1:]
+        datum = np.array(d_array).reshape(1, -1)
+       
+        label, score = mymodel.predict(datum)
+
+        pred[idx] = {"label": int(label[0]), "score": float(score[0])}        
+
+    #5. save result
+    with open("pred_result.json", 'w') as f:
+        json.dump(pred, f, indent=2)
+
+
 if __name__ == '__main__':
     cli.add_command(count)
     cli.add_command(extract)
+    cli.add_command(demo)
     cli()
