@@ -9,7 +9,7 @@ from utils import extract_fea
 from feature_engineering import fea_datetime
 
 
-data_fpath = "result-userIdentity.arn-root-dump.json"
+data_fpath = "data/result-userIdentity.arn-root-dump.json"
 
 data = []
 

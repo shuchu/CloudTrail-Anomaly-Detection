@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from typing import Any
-import json
 
 def flatten_json(
     in_json: dict[str, Any],

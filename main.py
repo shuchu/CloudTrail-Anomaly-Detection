@@ -6,6 +6,7 @@ from typing import Any
 import os
 import glob
 import json
+import random
 
 from iam_analyzer import CTAnalyzer
 
@@ -88,8 +89,11 @@ def demo(fpath):
     for row in myreader:
         data.append(row)
 
+    # randomize the data
+    random.shuffle(data)
+
     #2. split the trainn and testing 70-30
-    tr_ratio = 0.9
+    tr_ratio = 0.7
     tr_end_idx = int(tr_ratio * len(data))
 
     tr_data = data[:tr_end_idx]
@@ -118,7 +122,7 @@ def demo(fpath):
        
         label, score = mymodel.predict(datum)
 
-        if label[0] >= 1:
+        if label[0] < 1:
             pred[idx] = {"label": int(label[0]), "score": float(score[0])}       
             cnt += 1 
 
@@ -127,7 +131,7 @@ def demo(fpath):
         json.dump(pred, f, indent=2)
 
     # info
-    print("Rate of anomaly: {}".format(cnt / len(data)))
+    print("Rate of anomaly: {}".format(cnt / len(te_data)))
 
 
 @click.command()
